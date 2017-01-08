@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html>
+<head>
+</head>
+<body>
+<div class="navbar navbar-inverse navbar-fixed-top" th:fragment="header">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle" data-toggle="collapse" data-target=".nav-collapse">
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a href="#" class="navbar-left navbar-logo"><img src="/img/myconsents.png" /></a>
+            <a href="#" class="navbar-brand">myConsents</a>
+        </div>
+        <div class="navbar-collapse collapse">
+            <ul class="nav navbar-nav">
+                <li id="home"><a href="#" th:href="@{/}">Home</a></li>
+                <li id="organization"><a href="#" th:href="@{/organizationSelect}">Organization view</a></li>
+                <li id="user"><a href="#" th:href="@{/userSelect}">User view</a></li>
+            </ul>
+        </div>
+    </div>
+</div>
+</body>
+</html>

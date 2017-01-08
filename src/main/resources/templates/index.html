@@ -1,0 +1,29 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head> 
+    <title>myConsents SaaS</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8" />
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/css/bootstrap.min.css}" />
+    <link href="../static/css/core.css" rel="stylesheet" media="screen" th:href="@{/css/core.css}" />
+    <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".nav li").removeClass("active");
+            $('#home').addClass('active');
+        });
+    </script>
+</head>
+<body>
+    <div th:replace="../fragments/header :: header" />
+    <div class="container">
+        <div class="hero-unit">
+            <h1 th:text="'Welcome.'" />
+            <p>
+                This site is a stateless blockchain consent data viewer. Select one of the top menu options to see consents from user's or organization's perspective.
+            </p>
+        </div>
+        <div th:replace="../fragments/footer :: footer" />
+    </div>
+</body>
+</html>

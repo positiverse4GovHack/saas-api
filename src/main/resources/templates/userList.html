@@ -1,0 +1,63 @@
+<!DOCTYPE HTML>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <title>myConsents SaaS: User consents</title>
+    <meta http-equiv="Content-Type" content="text/html; charset=UTF-8"/>
+    <link href="../static/css/bootstrap.min.css" rel="stylesheet" media="screen" th:href="@{/css/bootstrap.min.css}"/>
+    <link href="../static/css/core.css" rel="stylesheet" media="screen" th:href="@{/css/core.css}"/>
+    <script src="../static/js/bootstrap.min.js" th:src="@{/js/bootstrap.min.js}"></script>
+    <script src="http://code.jquery.com/jquery-latest.js"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $(".nav li").removeClass("active");
+            $('#user').addClass('active');
+        });
+    </script>
+</head>
+<body>
+<div th:replace="../fragments/header :: header"/>
+<div class="container">
+    <div class="hero-unit">
+        <h1 th:text="'Consents of ' + ${userName}"/>
+        <p th:text="'Here you can find the list of all consents that ' + ${userName} + ' gave to organizations. Active consents are marked pale green. Withdrawn consents are marked pale red.'" />
+        <table class="table table-bordered table-striped">
+            <thead>
+            <tr>
+                <th>Consent id</th>
+                <th>Status</th>
+                <th>Data controller</th>
+                <th>Processing purpose</th>
+                <th>Personal data</th>
+                <th>Validity period</th>
+            </tr>
+            </thead>
+            <tbody>
+            <tr th:if="${consents.empty}">
+                <td colspan="6">No consents so far</td>
+            </tr>
+            <tr th:each="consent : ${consents}">
+                <td th:text="${#strings.substring(consent.giveConsentTxHash, 2, 9)}" />
+                <td th:text="${consent.active ? 'active' : 'withdrawn'}" th:class="${consent.active ? 'success' : 'danger'}" />
+                <td><nobr>
+                    <img th:src="${consent.dataController.logoFileName}" width="24"/>
+                    <span th:text="${consent.dataController.name}" />
+                </nobr></td>
+                <td th:text="${consent.consentType.processingPurpose}" />
+                <td>
+                    <nobr><div th:each="type : ${consent.personalDataTypes}" th:text="${type.webName}" /></nobr>
+                </td>
+                <td class="text-right">
+                    <nobr><div th:text="'from ' + ${#calendars.format(consent.giveTimestamp, 'yyyy-MM-dd HH:mm')}" /></nobr>
+                    <nobr><div th:if="${consent.withdrawTimestamp != null}" th:text="' to ' + ${#calendars.format(consent.withdrawTimestamp, 'yyyy-MM-dd HH:mm')}" /></nobr>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+        <p>
+            <a href="/userSelect" class="btn btn-large btn-success">Back</a>
+        </p>
+    </div>
+    <div th:replace="../fragments/footer :: footer"/>
+</div>
+</body>
+</html>
